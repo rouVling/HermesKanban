@@ -26,14 +26,14 @@ BUILTIN_TEMPLATES: list[dict[str, Any]] = [
     {
         "id": "dev-plan-implement-review-v1",
         "name": "Plan → Implement → Review",
-        "description": "기획, 구현, 리뷰를 순서대로 실행하는 개발 workflow",
+        "description": "Development workflow that runs plan, implement, and review in order",
         "version": 1,
         "entry_step": "plan",
         "steps": [
             {
                 "key": "plan",
-                "title": "기획: {title}",
-                "body": "요청:\n{body}\n\n상세 구현 계획을 작성하고 구현 범위와 검증 방법을 정리하세요.",
+                "title": "Plan: {title}",
+                "body": "Request:\n{body}\n\nWrite a detailed implementation plan and outline the scope and verification approach.",
                 "assignee": "dev_plan",
                 "skills": ["writing-plans"],
                 "priority": 5,
@@ -42,8 +42,8 @@ BUILTIN_TEMPLATES: list[dict[str, Any]] = [
             },
             {
                 "key": "implement",
-                "title": "구현: {title}",
-                "body": "상위 기획 task의 결과를 바탕으로 테스트를 먼저 작성한 뒤 구현하세요.",
+                "title": "Implement: {title}",
+                "body": "Based on the parent plan task's result, write tests first and then implement.",
                 "assignee": "dev",
                 "skills": ["test-driven-development"],
                 "priority": 4,
@@ -52,8 +52,8 @@ BUILTIN_TEMPLATES: list[dict[str, Any]] = [
             },
             {
                 "key": "review",
-                "title": "리뷰: {title}",
-                "body": "상위 구현 task의 변경사항을 리뷰하고 필요한 수정사항과 검증 결과를 정리하세요.",
+                "title": "Review: {title}",
+                "body": "Review the changes from the parent implement task and summarize any required fixes and verification results.",
                 "assignee": "dev_plan",
                 "skills": ["requesting-code-review"],
                 "priority": 3,

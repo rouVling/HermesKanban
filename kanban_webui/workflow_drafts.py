@@ -391,11 +391,11 @@ def steps_for_instantiation(draft: dict[str, Any]) -> list[dict[str, Any]]:
 def build_task_body(draft: dict[str, Any], step: dict[str, Any]) -> str:
     proposal = draft.get("proposal") or {}
     lines = [
-        "## 작업 목표",
+        "## Task Goal",
         step.get("title") or step.get("key") or "Workflow step",
         "",
-        "## 상세 지시",
-        step.get("body") or "(상세 지시 없음)",
+        "## Detailed Instructions",
+        step.get("body") or "(no detailed instructions)",
         "",
     ]
     criteria = step.get("acceptance_criteria") or []
@@ -409,16 +409,16 @@ def build_task_body(draft: dict[str, Any], step: dict[str, Any]) -> str:
             f"- Depends on: {', '.join(step.get('depends_on') or []) or '(none)'}",
             f"- Workflow source: {PROMPT_WORKFLOW_SOURCE_ID}",
             "",
-            "## 전체 Workflow 요약",
-            proposal.get("summary") or "(요약 없음)",
+            "## Full Workflow Summary",
+            proposal.get("summary") or "(no summary)",
             "",
-            "## 전략",
-            proposal.get("strategy") or "(전략 없음)",
+            "## Strategy",
+            proposal.get("strategy") or "(no strategy)",
             "",
-            "## 원본 사용자 요청",
+            "## Original User Request",
             draft.get("prompt") or "",
             "",
-            "## 첨부 파일",
+            "## Attachments",
         ]
     )
     attachments = draft.get("attachments") or []
@@ -428,18 +428,18 @@ def build_task_body(draft: dict[str, Any], step: dict[str, Any]) -> str:
             lines.extend(
                 [
                     f"- {attachment.get('filename')}",
-                    f"  - 저장 경로: {attachment.get('path')}",
-                    f"  - 발췌: {excerpt[:500]}",
+                    f"  - Saved path: {attachment.get('path')}",
+                    f"  - Excerpt: {excerpt[:500]}",
                 ]
             )
     else:
-        lines.append("- 없음")
+        lines.append("- None")
     lines.extend(
         [
             "",
             "## Worker Notes",
-            "- parent task가 있으면 완료 결과를 먼저 확인한 뒤 진행하세요.",
-            "- 작업 완료 시 검증 결과와 다음 단계에 필요한 handoff를 남기세요.",
+            "- If there is a parent task, review its completed result before proceeding.",
+            "- When the task is done, leave verification results and the handoff needed for the next step.",
         ]
     )
     return "\n".join(lines).strip() + "\n"

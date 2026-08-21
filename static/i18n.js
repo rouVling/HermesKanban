@@ -34,19 +34,46 @@ export const labels = {
     notifyHomeChannels: 'Notify home channels', noHomeChannels: 'No home channels configured', noWorkerLog: 'No worker log yet',
     complete: 'Complete', block: 'Block', unblock: 'Unblock', archive: 'Archive', save: 'Save', close: 'Close', addComment: 'Add comment',
     operations: 'Operations', opsOverview: 'Operations overview', opsRunning: 'Running now', opsHeartbeatOverdue: 'Heartbeat overdue', opsRetryQueue: 'Retry queue', opsBlockedAfterRetries: 'Blocked after retries', opsRecentFailures: 'Recent failures', opsNoRunning: 'No running tasks', opsNoRetry: 'No retry candidates', opsNoBlockedAfterRetries: 'No tasks blocked after retries', opsNoFailures: 'No recent failure events', opsEligibleNow: 'Eligible now', opsEstimatedWait: 'Estimated wait', opsAttempt: 'Attempt', opsLastError: 'Last error', opsOpenTask: 'Open task', opsEstimatedBackoffAdvisory: 'Estimated backoff is advisory until dispatcher-level backoff is implemented.', empty: 'None'
+  },
+  zh: {
+    subtitle: '清晰易读的任务运维看板', newBoard: '新建看板', refresh: '刷新', themeDark: '切换深色', themeLight: '切换浅色', quickTitle: '输入任务标题后按回车',
+    taskCreate: '新建任务', taskCreateHint: '仅在需要为新任务设置标题、详情、执行者 profile 和状态时打开此对话框。', taskTitlePlaceholder: '任务标题', taskBodyPlaceholder: '任务详情/指示（可选）',
+    assignee: '执行者 profile', create: '创建', created: '创建于', createdToast: '已创建', search: '搜索标题/内容/ID', allAssignees: '全部执行者', unassigned: '未分配', profileMissing: '未指定执行者 profile', profileMissingShort: '需要 profile', agentProfile: 'profile', manualAssignee: '手动', showArchived: '显示已归档',
+    bulkCreate: '批量创建', boardName: '看板名称', description: '描述', cancel: '取消', bulkHint: '每行一个任务。', loading: '加载中…',
+    workflow: 'Workflow', workflowCreate: '创建 AI Workflow', workflowDesignerHint: '根据提示词和附件设计任务 DAG，确认后应用为真实的 Kanban 任务。', workflowPrompt: 'Workflow 提示词', workflowPromptPlaceholder: '描述目标、产出、约束以及期望的步骤数', workflowPlannerProfile: 'Planner profile', workflowAttachments: '附件', workflowPlan: '设计', workflowPlanning: 'AI 正在设计 workflow 草稿…', workflowRevise: '修改', workflowRevisionPlaceholder: '描述要修改的步骤/profile/依赖', workflowApply: '应用', workflowDraftStatus: '草稿状态', workflowDraftEmpty: '输入提示词并点击「设计」以预览草稿。', workflowNotApplyable: '该草稿尚不可应用。请先解决遗留问题，再发送修改请求。', workflowInstance: 'Instance ID', workflowStep: '当前步骤', workflowSteps: '步骤',
+    updateAvailable: '有可用更新', updateTitle: 'KanbanWebUI 更新', updateApply: '更新并重启', updateLater: '稍后', updateChecking: '正在检查更新状态…', updateRestarting: '正在应用更新… 服务器重启后本页会自动刷新。', updateBlocked: '自动更新被阻止', updateNoCommits: '无提交详情',
+    triage: '待分类', todo: '待办', ready: '就绪', running: '运行中', blocked: '受阻', done: '完成', archived: '已归档',
+    title: '标题', body: '内容', noDescription: '无描述', priority: '优先级', status: '状态', workspace: '工作区', createdBy: '创建者',
+    comments: '评论', events: '事件', runs: '运行记录', monitor: '实时运行监控', context: '上下文', log: '日志', workerLog: 'Worker 日志',
+    dependencies: '依赖关系', parents: '父任务', children: '子任务', parent: '父任务', child: '子任务', chooseTask: '选择任务', none: '无', remove: '移除',
+    parentPortHint: '左侧父任务端口：拖到其他任务的右侧子任务端口以连接为父任务', childPortHint: '右侧子任务端口：拖到其他任务的左侧父任务端口以连接为子任务', linkCreatedToast: '已建立父/子连接', linkInvalidToast: '只能将一个左侧父任务端口与一个右侧子任务端口相连。', linkSameTaskToast: '任务不能连接到自身。',
+    dependencyViewFocus: '关系线：聚焦', dependencyViewAll: '关系线：全部', dependencyViewBlocked: '关系线：受阻', dependencyViewOff: '关系线：隐藏',
+    dependencyMap: '关系图', currentTask: '当前任务', noDependencies: '无父/子连接',
+    notifyHomeChannels: '通知 home 频道', noHomeChannels: '未配置 home 频道', noWorkerLog: '暂无 worker 日志',
+    complete: '完成', block: '标记受阻', unblock: '解除受阻', archive: '归档', save: '保存', close: '关闭', addComment: '添加评论',
+    operations: 'Operations', opsOverview: 'Operations 概览', opsRunning: '正在运行', opsHeartbeatOverdue: '心跳超时', opsRetryQueue: '重试队列', opsBlockedAfterRetries: '重试后受阻', opsRecentFailures: '近期失败', opsNoRunning: '无运行中的任务', opsNoRetry: '无重试候选', opsNoBlockedAfterRetries: '无重试后受阻的任务', opsNoFailures: '无近期失败事件', opsEligibleNow: '当前可执行', opsEstimatedWait: '预计等待', opsAttempt: '尝试次数', opsLastError: '最后错误', opsOpenTask: '打开任务', opsEstimatedBackoffAdvisory: '所示 backoff 为根据当前失败信息计算的参考估值，dispatcher 尚未强制执行。', empty: '无'
   }
 };
 
-let currentLang = localStorage.getItem('kanbanLang') || 'ko';
+const SUPPORTED_LANGS = ['zh', 'en', 'ko'];
+const DEFAULT_LANG = 'en';
+// Language toggle cycles zh -> en -> ko -> zh; the button label shows the NEXT language.
+const NEXT_LANG = { zh: 'en', en: 'ko', ko: 'zh' };
+const LANG_LABEL = { zh: '中', en: 'EN', ko: 'KO' };
+
+function normalizeLang(value) { return SUPPORTED_LANGS.includes(value) ? value : DEFAULT_LANG; }
+
+let currentLang = normalizeLang(localStorage.getItem('kanbanLang'));
 
 export function lang() { return currentLang; }
-export function setLang(next) { currentLang = next === 'en' ? 'en' : 'ko'; localStorage.setItem('kanbanLang', currentLang); applyI18n(); }
-export function t(key) { return (labels[currentLang] && labels[currentLang][key]) || labels.ko[key] || key; }
+export function nextLang() { return NEXT_LANG[currentLang]; }
+export function setLang(next) { currentLang = normalizeLang(next); localStorage.setItem('kanbanLang', currentLang); applyI18n(); }
+export function t(key) { return (labels[currentLang] && labels[currentLang][key]) || labels[DEFAULT_LANG][key] || key; }
 
 export function applyI18n(root = document) {
   root.documentElement?.setAttribute('lang', currentLang);
   root.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
   root.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
   const toggle = root.getElementById?.('langToggle');
-  if (toggle) toggle.textContent = currentLang === 'ko' ? 'EN' : 'KO';
+  if (toggle) toggle.textContent = LANG_LABEL[NEXT_LANG[currentLang]];
 }

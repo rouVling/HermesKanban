@@ -17,14 +17,14 @@
         <div class="brand-mark">H</div>
         <div>
           <h1>Hermes Kanban</h1>
-          <p data-i18n="subtitle">읽기 쉬운 작업 운영 보드</p>
+          <p data-i18n="subtitle">Readable operations board</p>
         </div>
       </div>
       <div class="top-actions">
         <select id="boardSelect" aria-label="board"></select>
-        <button class="button ghost" id="newBoardBtn" data-i18n="newBoard">보드 추가</button>
-        <button class="button ghost" id="refreshBtn" data-i18n="refresh">새로고침</button>
-        <button class="button ghost theme-toggle" id="themeToggle" type="button" aria-pressed="false">🌙 다크</button>
+        <button class="button ghost" id="newBoardBtn" data-i18n="newBoard">New board</button>
+        <button class="button ghost" id="refreshBtn" data-i18n="refresh">Refresh</button>
+        <button class="button ghost theme-toggle" id="themeToggle" type="button" aria-pressed="false">🌙 Dark</button>
         <button class="button" id="langToggle">EN</button>
       </div>
     </header>
@@ -34,7 +34,7 @@
         <div>
           <p id="serverLabel" class="eyebrow">KanbanWebUI</p>
           <h2 id="boardTitle">Default</h2>
-          <p id="boardDescription" class="muted">Hermes CLI와 같은 DB를 사용하는 전용 칸반 WebUI</p>
+          <p id="boardDescription" class="muted">Dedicated Kanban WebUI sharing the same DB as the Hermes CLI</p>
         </div>
         <div class="health-panel">
           <span id="healthDot" class="dot"></span>
@@ -47,21 +47,21 @@
 
       <section class="toolbar" aria-label="filters">
         <div class="filters">
-          <input id="searchInput" data-i18n-placeholder="search" placeholder="검색" />
-          <select id="assigneeFilter"><option value="" data-i18n="allAssignees">전체 담당자</option></select>
+          <input id="searchInput" data-i18n-placeholder="search" placeholder="Search title/body/ID" />
+          <select id="assigneeFilter"><option value="" data-i18n="allAssignees">All assignees</option></select>
           <select id="dependencyView" aria-label="dependency view">
-            <option value="focus" data-i18n="dependencyViewFocus">관계선: 선택 중심</option>
-            <option value="all" data-i18n="dependencyViewAll">관계선: 전체</option>
-            <option value="blocked" data-i18n="dependencyViewBlocked">관계선: 막힘</option>
-            <option value="off" data-i18n="dependencyViewOff">관계선: 숨김</option>
+            <option value="focus" data-i18n="dependencyViewFocus">Lines: Focus</option>
+            <option value="all" data-i18n="dependencyViewAll">Lines: All</option>
+            <option value="blocked" data-i18n="dependencyViewBlocked">Lines: Blocked</option>
+            <option value="off" data-i18n="dependencyViewOff">Lines: Hidden</option>
           </select>
-          <label class="check"><input id="archivedToggle" type="checkbox" /> <span data-i18n="showArchived">보관함 표시</span></label>
+          <label class="check"><input id="archivedToggle" type="checkbox" /> <span data-i18n="showArchived">Show archived</span></label>
         </div>
         <div class="toolbar-actions">
           <button class="button ghost" id="opsToggleBtn" type="button" data-i18n="operations" aria-expanded="false">Operations</button>
-          <button class="button primary" id="taskCreateBtn" type="button" data-i18n="taskCreate">Task 추가</button>
-          <button class="button ghost" id="workflowBtn" type="button" data-i18n="workflowCreate">Workflow 생성</button>
-          <button class="button ghost" id="bulkBtn" type="button" data-i18n="bulkCreate">일괄 추가</button>
+          <button class="button primary" id="taskCreateBtn" type="button" data-i18n="taskCreate">Create task</button>
+          <button class="button ghost" id="workflowBtn" type="button" data-i18n="workflowCreate">Create AI workflow</button>
+          <button class="button ghost" id="bulkBtn" type="button" data-i18n="bulkCreate">Bulk create</button>
         </div>
       </section>
 
@@ -77,79 +77,79 @@
 
   <dialog id="taskDialog" class="modal task-modal">
     <form id="taskCreateForm" method="dialog">
-      <h3 data-i18n="taskCreate">Task 추가</h3>
-      <p class="muted" data-i18n="taskCreateHint">필요할 때만 제목, 설명, 담당 프로필, 상태를 입력해 새 task를 생성합니다.</p>
-      <label class="dialog-label"><span data-i18n="title">제목</span><input id="taskTitle" name="title" autocomplete="off" data-i18n-placeholder="taskTitlePlaceholder" placeholder="작업 제목" required /></label>
-      <label class="dialog-label"><span data-i18n="body">본문</span><textarea id="taskBody" name="body" rows="4" data-i18n-placeholder="taskBodyPlaceholder" placeholder="작업 설명/지시사항"></textarea></label>
+      <h3 data-i18n="taskCreate">Create task</h3>
+      <p class="muted" data-i18n="taskCreateHint">Open this dialog only when you need to set title, details, agent profile, and status for a new task.</p>
+      <label class="dialog-label"><span data-i18n="title">Title</span><input id="taskTitle" name="title" autocomplete="off" data-i18n-placeholder="taskTitlePlaceholder" placeholder="Task title" required /></label>
+      <label class="dialog-label"><span data-i18n="body">Body</span><textarea id="taskBody" name="body" rows="4" data-i18n-placeholder="taskBodyPlaceholder" placeholder="Task details/instructions (optional)"></textarea></label>
       <div class="task-field-grid">
-        <label class="dialog-label"><span data-i18n="assignee">담당 프로필</span><select id="taskAssignee" name="assignee" aria-label="agent profile"></select></label>
-        <label class="dialog-label"><span data-i18n="status">상태</span><select id="taskStatus" name="status">
+        <label class="dialog-label"><span data-i18n="assignee">Agent profile</span><select id="taskAssignee" name="assignee" aria-label="agent profile"></select></label>
+        <label class="dialog-label"><span data-i18n="status">Status</span><select id="taskStatus" name="status">
           <option value="ready">ready</option>
           <option value="todo">todo</option>
           <option value="triage">triage</option>
         </select></label>
       </div>
       <div class="modal-actions">
-        <button class="button ghost" type="button" data-task-cancel data-i18n="cancel">취소</button>
-        <button class="button primary" value="default" data-i18n="create">추가</button>
+        <button class="button ghost" type="button" data-task-cancel data-i18n="cancel">Cancel</button>
+        <button class="button primary" value="default" data-i18n="create">Create</button>
       </div>
     </form>
   </dialog>
 
   <dialog id="boardDialog" class="modal">
     <form id="boardForm" method="dialog">
-      <h3 data-i18n="newBoard">보드 추가</h3>
+      <h3 data-i18n="newBoard">New board</h3>
       <input name="slug" placeholder="project-slug" required />
-      <input name="name" data-i18n-placeholder="boardName" placeholder="보드 이름" />
-      <textarea name="description" data-i18n-placeholder="description" placeholder="설명"></textarea>
+      <input name="name" data-i18n-placeholder="boardName" placeholder="Board name" />
+      <textarea name="description" data-i18n-placeholder="description" placeholder="Description"></textarea>
       <div class="modal-actions">
-        <button class="button ghost" value="cancel" data-i18n="cancel">취소</button>
-        <button class="button primary" value="default" data-i18n="create">추가</button>
+        <button class="button ghost" value="cancel" data-i18n="cancel">Cancel</button>
+        <button class="button primary" value="default" data-i18n="create">Create</button>
       </div>
     </form>
   </dialog>
 
   <dialog id="bulkDialog" class="modal">
     <form id="bulkForm" method="dialog">
-      <h3 data-i18n="bulkCreate">일괄 추가</h3>
-      <p class="muted" data-i18n="bulkHint">한 줄에 작업 하나씩 입력하세요.</p>
+      <h3 data-i18n="bulkCreate">Bulk create</h3>
+      <p class="muted" data-i18n="bulkHint">One task per line.</p>
       <textarea name="lines" rows="10" placeholder="Task one
 Task two"></textarea>
       <div class="modal-actions">
-        <button class="button ghost" value="cancel" data-i18n="cancel">취소</button>
-        <button class="button primary" value="default" data-i18n="create">추가</button>
+        <button class="button ghost" value="cancel" data-i18n="cancel">Cancel</button>
+        <button class="button primary" value="default" data-i18n="create">Create</button>
       </div>
     </form>
   </dialog>
 
   <dialog id="workflowDialog" class="modal workflow-modal">
     <form id="workflowForm" method="dialog">
-      <h3 data-i18n="workflowCreate">AI Workflow 생성</h3>
-      <p class="muted" data-i18n="workflowDesignerHint">프롬프트와 첨부파일로 작업 DAG를 설계한 뒤 승인 시 실제 Kanban task로 적용합니다.</p>
-      <label class="dialog-label"><span data-i18n="workflowPrompt">Workflow 프롬프트</span><textarea id="workflowPrompt" name="prompt" rows="6" data-i18n-placeholder="workflowPromptPlaceholder" placeholder="만들고 싶은 workflow를 설명하세요" required></textarea></label>
+      <h3 data-i18n="workflowCreate">Create AI workflow</h3>
+      <p class="muted" data-i18n="workflowDesignerHint">Design a task DAG from a prompt and attachments, then approve it into real Kanban tasks.</p>
+      <label class="dialog-label"><span data-i18n="workflowPrompt">Workflow prompt</span><textarea id="workflowPrompt" name="prompt" rows="6" data-i18n-placeholder="workflowPromptPlaceholder" placeholder="Describe goals, outputs, constraints, and desired step count" required></textarea></label>
       <div class="workflow-field-grid">
-        <label class="dialog-label"><span data-i18n="workflowPlannerProfile">Planner 프로필</span><input id="workflowPlannerProfile" name="planner_profile" placeholder="자동 선택" /></label>
-        <label class="dialog-label"><span data-i18n="workflowInstance">Instance ID</span><input name="instance_id" placeholder="선택 사항: wf_project_001" /></label>
+        <label class="dialog-label"><span data-i18n="workflowPlannerProfile">Planner profile</span><input id="workflowPlannerProfile" name="planner_profile" placeholder="auto" /></label>
+        <label class="dialog-label"><span data-i18n="workflowInstance">Instance ID</span><input name="instance_id" placeholder="optional: wf_project_001" /></label>
       </div>
-      <label class="dialog-label"><span data-i18n="workflowAttachments">첨부파일</span><input id="workflowAttachments" name="attachments" type="file" multiple /></label>
+      <label class="dialog-label"><span data-i18n="workflowAttachments">Attachments</span><input id="workflowAttachments" name="attachments" type="file" multiple /></label>
       <div class="workflow-draft-actions">
-        <button class="button ghost" type="button" data-workflow-plan data-i18n="workflowPlan">설계</button>
+        <button class="button ghost" type="button" data-workflow-plan data-i18n="workflowPlan">Plan</button>
       </div>
       <div id="workflowDraftPreview" class="workflow-preview" aria-live="polite"></div>
-      <label class="dialog-label"><span data-i18n="workflowRevise">수정 프롬프트</span><textarea id="workflowRevisionPrompt" name="revision_prompt" rows="3" data-i18n-placeholder="workflowRevisionPlaceholder" placeholder="변경할 점을 입력하세요"></textarea></label>
+      <label class="dialog-label"><span data-i18n="workflowRevise">Revise</span><textarea id="workflowRevisionPrompt" name="revision_prompt" rows="3" data-i18n-placeholder="workflowRevisionPlaceholder" placeholder="Describe step/profile/dependency changes"></textarea></label>
       <div class="modal-actions">
-        <button class="button ghost" type="button" data-workflow-cancel data-i18n="cancel">취소</button>
-        <button class="button ghost" type="button" data-workflow-revise data-i18n="workflowRevise" disabled>수정</button>
-        <button class="button primary" type="button" data-workflow-apply data-i18n="workflowApply" disabled>적용</button>
+        <button class="button ghost" type="button" data-workflow-cancel data-i18n="cancel">Cancel</button>
+        <button class="button ghost" type="button" data-workflow-revise data-i18n="workflowRevise" disabled>Revise</button>
+        <button class="button primary" type="button" data-workflow-apply data-i18n="workflowApply" disabled>Apply</button>
       </div>
     </form>
   </dialog>
 
   <dialog id="updateDialog" class="modal update-modal">
     <form method="dialog">
-      <p class="eyebrow" data-i18n="updateAvailable">새 업데이트 사용 가능</p>
-      <h3 data-i18n="updateTitle">KanbanWebUI 업데이트</h3>
-      <p id="updateStatusMessage" class="muted update-status" data-i18n="updateChecking">업데이트 상태 확인 중…</p>
+      <p class="eyebrow" data-i18n="updateAvailable">Update available</p>
+      <h3 data-i18n="updateTitle">KanbanWebUI update</h3>
+      <p id="updateStatusMessage" class="muted update-status" data-i18n="updateChecking">Checking update status…</p>
       <div class="update-meta">
         <span data-update-current>local</span>
         <strong>→</strong>
@@ -157,8 +157,8 @@ Task two"></textarea>
       </div>
       <ul id="updateCommitList" class="update-commit-list"></ul>
       <div class="modal-actions">
-        <button class="button ghost" type="button" data-update-later data-i18n="updateLater">나중에</button>
-        <button class="button primary" type="button" data-update-apply data-i18n="updateApply">업데이트 후 재시작</button>
+        <button class="button ghost" type="button" data-update-later data-i18n="updateLater">Later</button>
+        <button class="button primary" type="button" data-update-apply data-i18n="updateApply">Update and restart</button>
       </div>
     </form>
   </dialog>

@@ -1,5 +1,5 @@
 import { api } from './api.js?v=20260508-02';
-import { applyI18n, lang, setLang, t } from './i18n.js?v=20260508-02';
+import { applyI18n, nextLang, setLang, t } from './i18n.js?v=20260508-02';
 import { setupThemeToggle, updateThemeToggleLabel } from './theme.js?v=20260508-02';
 import { renderBoard, renderKpis } from './board.js?v=20260508-02';
 import { setupDependencyControls } from './dependency-lines.js?v=20260508-02';
@@ -88,7 +88,7 @@ export async function load() {
   state.latestEventId = data.latest_event_id;
   renderAssigneeControls(data);
   document.getElementById('boardTitle').textContent = data.board_meta.name || data.board;
-  document.getElementById('boardDescription').textContent = data.board_meta.description || 'Hermes CLI와 같은 DB를 사용하는 전용 칸반 WebUI';
+  document.getElementById('boardDescription').textContent = data.board_meta.description || 'Dedicated Kanban WebUI sharing the same DB as the Hermes CLI';
   renderKpis(data);
   renderBoard(data);
   await refreshOperationsPanel();
@@ -97,7 +97,7 @@ export async function load() {
 
 function setupControls() {
   document.getElementById('refreshBtn').addEventListener('click', load);
-  document.getElementById('langToggle').addEventListener('click', () => { setLang(lang() === 'ko' ? 'en' : 'ko'); updateThemeToggleLabel(); load(); });
+  document.getElementById('langToggle').addEventListener('click', () => { setLang(nextLang()); updateThemeToggleLabel(); load(); });
   document.getElementById('boardSelect').addEventListener('change', async ev => {
     setBoard(ev.target.value);
     await api.switchBoard(state.board);

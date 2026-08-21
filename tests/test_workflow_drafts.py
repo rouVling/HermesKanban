@@ -157,7 +157,7 @@ def test_workflow_draft_apply_creates_tasks_links_and_locks_applied_draft(client
     assert by_step["implement"]["assignee"] is None
 
     detail = client.get(f"/api/tasks/{by_step['plan']['id']}?board=default").json()
-    assert "## 원본 사용자 요청" in detail["task"]["body"]
+    assert "## Original User Request" in detail["task"]["body"]
     assert "결제 기능 workflow" in detail["task"]["body"]
     assert "requirements.md" in detail["task"]["body"]
 
