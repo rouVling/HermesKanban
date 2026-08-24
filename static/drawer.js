@@ -4,6 +4,71 @@ import { renderMarkdown, escapeHtml } from './markdown.js?v=20260508-02';
 import { renderMonitor } from './monitor.js?v=20260508-02';
 import { state, toast } from './state.js?v=20260508-02';
 
+const DRAWER_SIDE_KEY = 'kanban.drawer.side';
+const DRAWER_WIDTH_KEY = 'kanban.drawer.width';
+const DRAWER_MIN_WIDTH = 360;
+
+function drawerMaxWidth() {
+  return Math.round(window.innerWidth * 0.96);
+}
+
+function applyDrawerSide(drawer, side) {
+  drawer.classList.toggle('side-left', side === 'left');
+  const toggle = drawer.querySelector('#drawerSideToggle');
+  if (toggle) toggle.textContent = side === 'left' ? '⇥' : '⇤';
+}
+
+function applyDrawerWidth(drawer, width) {
+  const clamped = Math.max(DRAWER_MIN_WIDTH, Math.min(drawerMaxWidth(), Math.round(width)));
+  drawer.style.setProperty('--drawer-width', clamped + 'px');
+  return clamped;
+}
+
+function setupDrawerControls(drawer) {
+  const side = localStorage.getItem(DRAWER_SIDE_KEY) === 'left' ? 'left' : 'right';
+  applyDrawerSide(drawer, side);
+
+  const savedWidth = parseInt(localStorage.getItem(DRAWER_WIDTH_KEY), 10);
+  if (Number.isFinite(savedWidth)) applyDrawerWidth(drawer, savedWidth);
+
+  const toggle = drawer.querySelector('#drawerSideToggle');
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      const next = drawer.classList.contains('side-left') ? 'right' : 'left';
+      applyDrawerSide(drawer, next);
+      localStorage.setItem(DRAWER_SIDE_KEY, next);
+    });
+  }
+
+  const handle = drawer.querySelector('#drawerResize');
+  if (handle) {
+    handle.addEventListener('pointerdown', ev => {
+      ev.preventDefault();
+      const startX = ev.clientX;
+      const startWidth = drawer.getBoundingClientRect().width;
+      const onLeft = drawer.classList.contains('side-left');
+      drawer.classList.add('resizing');
+      handle.setPointerCapture(ev.pointerId);
+
+      const onMove = e => {
+        // 左侧抽屉：往右拖变宽；右侧抽屉：往左拖变宽
+        const delta = onLeft ? (e.clientX - startX) : (startX - e.clientX);
+        applyDrawerWidth(drawer, startWidth + delta);
+      };
+      const onUp = e => {
+        drawer.classList.remove('resizing');
+        try { handle.releasePointerCapture(e.pointerId); } catch (_) {}
+        handle.removeEventListener('pointermove', onMove);
+        handle.removeEventListener('pointerup', onUp);
+        const finalWidth = drawer.getBoundingClientRect().width;
+        localStorage.setItem(DRAWER_WIDTH_KEY, String(Math.round(finalWidth)));
+      };
+      handle.addEventListener('pointermove', onMove);
+      handle.addEventListener('pointerup', onUp);
+    });
+  }
+}
+
 export function closeDrawer() {
   const drawer = document.getElementById('drawer');
   const overlay = document.getElementById('overlay');
@@ -170,9 +235,14 @@ export async function openTaskDrawer(taskId) {
   const childOptions = taskOptions(availableTasks(boardData, task.id, detail.links.children));
 
   drawer.innerHTML = `
+    <div class="drawer-resize-handle" id="drawerResize" aria-hidden="true"></div>
+    <div class="drawer-body">
     <div class="drawer-header">
       <div><code>${escapeHtml(task.id)}</code><h2>${escapeHtml(task.title)}</h2></div>
-      <button class="icon-button" id="drawerClose" aria-label="close">×</button>
+      <div class="drawer-header-buttons">
+        <button class="icon-button drawer-side-toggle" id="drawerSideToggle" aria-label="toggle side" title="切换左右"></button>
+        <button class="icon-button" id="drawerClose" aria-label="close">×</button>
+      </div>
     </div>
 
     <form id="taskMetaForm" class="drawer-section inline-form">
@@ -240,8 +310,10 @@ export async function openTaskDrawer(taskId) {
       <div class="section-title worker-log-head"><h3>${t('workerLog')}</h3><button class="button ghost" data-log-refresh>${t('refresh')}</button></div>
       <pre id="workerLogContent" class="log-tail"></pre>
     </section>
+    </div>
   `;
   applyI18n(drawer);
+  setupDrawerControls(drawer);
   drawer.querySelector('#drawerClose').addEventListener('click', closeDrawer);
   drawer.querySelectorAll('[data-mini-task-id]').forEach(btn => btn.addEventListener('click', async () => {
     const nextTaskId = btn.dataset.miniTaskId;
