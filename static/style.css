@@ -13,7 +13,7 @@ button, input, select, textarea { font: inherit; }
 .brand-mark { width: 46px; height: 46px; border-radius: 14px; background: var(--primary); color: white; display: grid; place-items: center; font-weight: 800; box-shadow: var(--shadow-soft); }
 h1, h2, h3, p { margin: 0; }
 h1 { font-size: 20px; letter-spacing: -0.03em; }
-.brand p, .muted { color: var(--muted); }
+.brand p, .muted { color: var(--muted); margin-top: 5px; margin-bottom: 5px; }
 .top-actions, .filters, .toolbar-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
 .button { border: 1px solid var(--border); background: var(--surface-strong); color: var(--ink); padding: 10px 14px; border-radius: 999px; cursor: pointer; font-weight: 700; transition: background-color .16s ease, border-color .16s ease, color .16s ease; }
 .button.primary { background: var(--primary); color: var(--primary-ink); border-color: var(--primary); }
@@ -24,7 +24,7 @@ h1 { font-size: 20px; letter-spacing: -0.03em; }
 .danger-btn { color: var(--danger); }
 .button.ghost.danger-btn:hover { background: rgba(201,42,42,.08); color: var(--danger); border-color: rgba(201,42,42,.30); }
 select, input, textarea { border: 1px solid var(--border); border-radius: 14px; padding: 11px 13px; background: var(--control-bg); color: var(--ink); outline: none; }
-textarea { width: 100%; resize: vertical; }
+textarea { width: 100%; resize: vertical; margin-top: 10px; margin-bottom: 10px; }
 .hero-card, .toolbar, .kpi, .drawer, .modal { background: var(--surface); border: 1px solid var(--hairline); box-shadow: var(--shadow-soft); backdrop-filter: blur(18px); }
 .hero-card { border-radius: var(--radius-lg); padding: 24px; display: flex; justify-content: space-between; gap: 22px; align-items: center; }
 .eyebrow { color: var(--link); font-weight: 800; text-transform: uppercase; letter-spacing: .08em; font-size: 12px; margin-bottom: 8px; }
