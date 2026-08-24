@@ -41,7 +41,7 @@ textarea { width: 100%; resize: vertical; }
 .kpi { border-radius: var(--radius-md); padding: 15px; min-width: 0; }
 .kpi small { color: var(--muted); display: block; margin-bottom: 8px; }
 .kpi strong { font-size: 28px; letter-spacing: -0.05em; }
-.board { position: relative; display: grid; grid-template-columns: repeat(var(--kanban-column-count, 6), minmax(var(--column-min-width), 1fr)); gap: 14px; overflow-x: auto; min-height: calc(100vh - 310px); padding-bottom: 16px; scroll-snap-type: x proximity; }
+.board { position: relative; display: grid; grid-template-columns: repeat(var(--kanban-column-count, 6), minmax(var(--column-min-width), 1fr)); gap: 14px; overflow-x: clip; min-height: calc(100vh - 310px); padding-bottom: 16px; scroll-snap-type: x proximity; }
 .board-column { position: relative; min-width: 0; border-radius: var(--radius-lg); padding: 12px; align-self: stretch; scroll-snap-align: start; }
 .board-column::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--hairline); box-shadow: var(--shadow-soft); backdrop-filter: blur(18px); }
 .board-column header { position: sticky; top: 0; z-index: 2; display: flex; align-items: center; justify-content: space-between; padding: 8px 6px 12px; background: var(--column-header-bg); border-radius: 16px; }
