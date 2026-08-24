@@ -84,7 +84,7 @@ function dependencyMiniMap(detail, boardData, task) {
   const childNodes = children.length ? children.map(id => dependencyMiniNode(id, 'child', tasks)).join('') : `<p class="muted">${t('none')}</p>`;
   return `<div class="dependency-mini-map">
     <div class="dependency-mini-lane parents"><strong>${t('parents')}</strong>${parentNodes}</div>
-    <div class="dependency-mini-current"><span></span>${dependencyMiniNode(task.id, 'current', tasks, true)}<span></span></div>
+    <div class="dependency-mini-current"><strong aria-hidden="true">&nbsp;</strong><span></span>${dependencyMiniNode(task.id, 'current', tasks, true)}<span></span></div>
     <div class="dependency-mini-lane children"><strong>${t('children')}</strong>${childNodes}</div>
   </div>`;
 }

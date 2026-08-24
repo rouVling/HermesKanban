@@ -123,7 +123,8 @@ textarea { width: 100%; resize: vertical; margin-top: 10px; margin-bottom: 10px;
 .dependency-mini-map.empty-map { grid-template-columns: 1fr; }
 .dependency-mini-lane { min-width: 0; display: grid; gap: 8px; align-content: start; }
 .dependency-mini-lane > strong { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
-.dependency-mini-current { display: grid; grid-template-columns: 28px minmax(0, 1fr) 28px; gap: 0; align-items: center; }
+.dependency-mini-current { display: grid; grid-template-columns: 28px minmax(0, 1fr) 28px; column-gap: 0; row-gap: 8px; align-content: start; align-items: center; }
+.dependency-mini-current > strong { grid-column: 1 / -1; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
 .dependency-mini-current > span { height: 2px; background: linear-gradient(90deg, rgba(37,99,235,.58), rgba(22,163,74,.58)); }
 .dependency-mini-node { appearance: none; width: 100%; min-width: 0; display: grid; gap: 5px; text-align: left; border: 1px solid var(--hairline); border-radius: 16px; padding: 10px; background: var(--mini-node-bg); color: var(--ink); cursor: pointer; }
 .dependency-mini-node:hover { border-color: var(--primary); box-shadow: 0 8px 24px rgba(23,23,23,.10); }
@@ -218,5 +219,6 @@ textarea { width: 100%; resize: vertical; margin-top: 10px; margin-bottom: 10px;
   .inline-form, .dependency-grid, .detail-grid, .dependency-mini-map, .task-field-grid, .workflow-field-grid { grid-template-columns: 1fr; }
   .dependency-mini-current { grid-template-columns: 1fr; gap: 8px; }
   .dependency-mini-current > span { display: none; }
+  .dependency-mini-current > strong { display: none; }
   .monitor-grid { grid-template-columns: repeat(2, 1fr); }
 }
