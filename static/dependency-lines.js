@@ -452,3 +452,17 @@ export function selectDependencyTask(taskId) {
   state.selectedTaskId = taskId || null;
   document.dispatchEvent(new CustomEvent('kanban:dependency-selected', { detail: { taskId: state.selectedTaskId } }));
 }
+
+// 供列聚焦模块临时切换连线模式用：设值并同步顶部下拉框，然后重绘。
+// persist=false 时不写 localStorage（聚焦是临时态，退出要还原用户原选择）。
+export function setDependencyView(value, { persist = false } = {}) {
+  state.dependencyView = validMode(value);
+  const select = document.getElementById('dependencyView');
+  if (select) select.value = state.dependencyView;
+  if (persist) localStorage.setItem('dependencyView', state.dependencyView);
+  scheduleDraw();
+}
+
+export function getDependencyView() {
+  return mode();
+}

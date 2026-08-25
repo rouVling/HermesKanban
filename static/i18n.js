@@ -13,6 +13,7 @@ export const labels = {
     parentPortHint: '왼쪽 부모 포트: 다른 task의 오른쪽 자식 포트로 드래그해 부모로 연결', childPortHint: '오른쪽 자식 포트: 다른 task의 왼쪽 부모 포트로 드래그해 자식으로 연결', linkCreatedToast: '부모/자식 연결됨', linkInvalidToast: '왼쪽 부모 포트와 오른쪽 자식 포트만 연결할 수 있습니다.', linkSameTaskToast: '같은 task끼리는 연결할 수 없습니다.',
     dependencyViewFocus: '관계선: 선택 중심', dependencyViewAll: '관계선: 전체', dependencyViewBlocked: '관계선: 막힘', dependencyViewOff: '관계선: 숨김',
     dependencyMap: '관계 지도', currentTask: '현재 작업', noDependencies: '연결된 부모/자식 없음',
+    focusColumn: '이 컬럼 집중', focusExit: '집중 종료', focusLayoutToggle: '레이아웃: 타일/단일',
     notifyHomeChannels: '홈 채널 알림', noHomeChannels: '설정된 홈 채널 없음', noWorkerLog: 'worker 로그 없음',
     complete: '완료', block: '막기', unblock: '해제', archive: '보관', save: '저장', close: '닫기', addComment: '댓글 추가',
     operations: 'Operations', opsOverview: 'Operations 개요', opsRunning: '실행 중', opsHeartbeatOverdue: 'Heartbeat 지연', opsRetryQueue: 'Retry queue', opsBlockedAfterRetries: '재시도 후 막힘', opsRecentFailures: '최근 실패', opsNoRunning: '실행 중인 작업 없음', opsNoRetry: '재시도 후보 없음', opsNoBlockedAfterRetries: '재시도 후 막힌 작업 없음', opsNoFailures: '최근 실패 이벤트 없음', opsEligibleNow: '지금 가능', opsEstimatedWait: '예상 대기', opsAttempt: '시도', opsLastError: '마지막 오류', opsOpenTask: '열기', opsEstimatedBackoffAdvisory: '표시된 backoff는 현재 실패 정보로 계산한 참고용 추정치이며 dispatcher가 아직 강제하지 않습니다.', empty: '없음'
@@ -31,6 +32,7 @@ export const labels = {
     parentPortHint: 'Left parent port: drag to another task right child port to link as parent', childPortHint: 'Right child port: drag to another task left parent port to link as child', linkCreatedToast: 'Parent/child linked', linkInvalidToast: 'Connect one left parent port with one right child port.', linkSameTaskToast: 'A task cannot link to itself.',
     dependencyViewFocus: 'Lines: Focus', dependencyViewAll: 'Lines: All', dependencyViewBlocked: 'Lines: Blocked', dependencyViewOff: 'Lines: Hidden',
     dependencyMap: 'Dependency map', currentTask: 'Current task', noDependencies: 'No parent/child links',
+    focusColumn: 'Focus this column', focusExit: 'Exit focus', focusLayoutToggle: 'Layout: tiled/single',
     notifyHomeChannels: 'Notify home channels', noHomeChannels: 'No home channels configured', noWorkerLog: 'No worker log yet',
     complete: 'Complete', block: 'Block', unblock: 'Unblock', archive: 'Archive', save: 'Save', close: 'Close', addComment: 'Add comment',
     operations: 'Operations', opsOverview: 'Operations overview', opsRunning: 'Running now', opsHeartbeatOverdue: 'Heartbeat overdue', opsRetryQueue: 'Retry queue', opsBlockedAfterRetries: 'Blocked after retries', opsRecentFailures: 'Recent failures', opsNoRunning: 'No running tasks', opsNoRetry: 'No retry candidates', opsNoBlockedAfterRetries: 'No tasks blocked after retries', opsNoFailures: 'No recent failure events', opsEligibleNow: 'Eligible now', opsEstimatedWait: 'Estimated wait', opsAttempt: 'Attempt', opsLastError: 'Last error', opsOpenTask: 'Open task', opsEstimatedBackoffAdvisory: 'Estimated backoff is advisory until dispatcher-level backoff is implemented.', empty: 'None'
@@ -49,6 +51,7 @@ export const labels = {
     parentPortHint: '左侧父任务端口：拖到其他任务的右侧子任务端口以连接为父任务', childPortHint: '右侧子任务端口：拖到其他任务的左侧父任务端口以连接为子任务', linkCreatedToast: '已建立父/子连接', linkInvalidToast: '只能将一个左侧父任务端口与一个右侧子任务端口相连。', linkSameTaskToast: '任务不能连接到自身。',
     dependencyViewFocus: '关系线：聚焦', dependencyViewAll: '关系线：全部', dependencyViewBlocked: '关系线：受阻', dependencyViewOff: '关系线：隐藏',
     dependencyMap: '关系图', currentTask: '当前任务', noDependencies: '无父/子连接',
+    focusColumn: '聚焦此列', focusExit: '退出聚焦', focusLayoutToggle: '布局：平铺/单列',
     notifyHomeChannels: '通知 home 频道', noHomeChannels: '未配置 home 频道', noWorkerLog: '暂无 worker 日志',
     complete: '完成', block: '标记受阻', unblock: '解除受阻', archive: '归档', save: '保存', close: '关闭', addComment: '添加评论',
     operations: 'Operations', opsOverview: 'Operations 概览', opsRunning: '正在运行', opsHeartbeatOverdue: '心跳超时', opsRetryQueue: '重试队列', opsBlockedAfterRetries: '重试后受阻', opsRecentFailures: '近期失败', opsNoRunning: '无运行中的任务', opsNoRetry: '无重试候选', opsNoBlockedAfterRetries: '无重试后受阻的任务', opsNoFailures: '无近期失败事件', opsEligibleNow: '当前可执行', opsEstimatedWait: '预计等待', opsAttempt: '尝试次数', opsLastError: '最后错误', opsOpenTask: '打开任务', opsEstimatedBackoffAdvisory: '所示 backoff 为根据当前失败信息计算的参考估值，dispatcher 尚未强制执行。', empty: '无'
