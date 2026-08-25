@@ -3,6 +3,7 @@ import { escapeHtml } from './markdown.js?v=20260508-02';
 import { openTaskDrawer } from './drawer.js?v=20260508-02';
 import { attachDragHandlers } from './dragdrop.js?v=20260508-02';
 import { clearDependencyFocus, focusDependencyTask, renderDependencyOverlay, selectDependencyTask } from './dependency-lines.js?v=20260508-02';
+import { setupColumnFocus, setupFocusControls, ensureFocusToolbar } from './focus.js?v=20260508-02';
 
 function card(task) {
   const isUnassigned = !task.assignee;
@@ -67,5 +68,8 @@ export function renderBoard(data) {
     document.dispatchEvent(new CustomEvent('kanban:open-task-create', { detail: { status: btn.dataset.status } }));
   }));
   attachDragHandlers(root);
+  ensureFocusToolbar();
+  setupColumnFocus(root);
+  setupFocusControls();
   renderDependencyOverlay(data);
 }

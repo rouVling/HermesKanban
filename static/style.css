@@ -50,6 +50,28 @@ textarea { width: 100%; resize: vertical; margin-top: 10px; margin-bottom: 10px;
 .board-column header small { color: var(--muted); }
 .mini-add, .icon-button { border: none; background: var(--surface-strong); color: var(--ink); border-radius: 999px; width: 32px; height: 32px; cursor: pointer; }
 .cards { position: relative; z-index: 2; display: grid; gap: 10px; }
+
+/* ===== 列聚焦（focus.js）：全部挂 .board.is-focused 前缀，整体视图不受影响 ===== */
+/* 列头聚焦按钮：与 .mini-add 同一圆钮体系，稍作区分。 */
+.column-focus-btn { font-size: 14px; line-height: 1; }
+/* 列头按钮组：聚焦钮 + ＋钮 挨在一起靠右（列头是 space-between）。 */
+.column-actions { display: flex; gap: 6px; align-items: center; }
+/* 聚焦工具条：常驻但默认隐藏，仅聚焦时显示。 */
+.focus-toolbar { display: none; gap: 8px; margin-bottom: 12px; }
+.board.is-focused ~ .focus-toolbar, .focus-toolbar.is-visible { display: flex; }
+/* 聚焦态：非聚焦列隐藏，聚焦列独占宽度。 */
+.board.is-focused { grid-template-columns: 1fr; }
+.board.is-focused .board-column:not(.focused) { display: none; }
+.board.is-focused .board-column.focused { grid-column: 1 / -1; }
+/* 平铺布局：聚焦列卡片多栏网格，压缩纵向高度。 */
+.board.is-focused[data-focus-layout="tiled"] .board-column.focused .cards {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  align-items: start;
+}
+/* 单列布局：回到纵向单栏（连线最干净的退路）。 */
+.board.is-focused[data-focus-layout="single"] .board-column.focused .cards {
+  grid-template-columns: 1fr;
+}
 .task-card { position: relative; background: var(--card-bg); border: 1px solid var(--hairline); border-radius: 18px; padding: 14px; cursor: grab; box-shadow: var(--card-shadow); transition: transform .16s ease, box-shadow .16s ease, opacity .16s ease; }
 .task-card.is-unassigned { border-color: var(--warning); box-shadow: 0 0 0 1px var(--warning-ring), var(--card-shadow); }
 .task-card.is-unassigned::after { content: ""; position: absolute; inset: 0; z-index: 0; border-radius: 18px; pointer-events: none; background: linear-gradient(135deg, var(--warning-soft), transparent 42%); }
