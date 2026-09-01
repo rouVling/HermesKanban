@@ -180,6 +180,7 @@ textarea { width: 100%; resize: vertical; margin-top: 10px; margin-bottom: 10px;
 .log-tail { max-height: 280px; overflow: auto; background: var(--log-bg); color: var(--log-ink); border-radius: 14px; padding: 12px; font-family: var(--font-mono); font-size: 12px; white-space: pre-wrap; }
 .timeline, .comment-list { padding-left: 20px; color: var(--muted); }
 .comment-list li > strong { margin-right: 8px; }
+.comment-list li > p { white-space: pre-wrap; word-break: break-word; margin: 4px 0 0; }
 .timeline li { word-break: break-word; }
 .markdown { color: var(--markdown-ink); line-height: 1.5; }
 .toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 16px); opacity: 0; pointer-events: none; background: var(--primary); color: var(--primary-ink); padding: 12px 18px; border-radius: 999px; transition: .18s ease; z-index: 40; }
