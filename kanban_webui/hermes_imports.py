@@ -58,3 +58,33 @@ except Exception as exc:  # pragma: no cover - depends on host install
         "Could not import hermes_cli.kanban_db. Set HERMES_AGENT_ROOT to the "
         "Hermes Agent checkout that contains hermes_cli/kanban_db.py."
     ) from exc
+
+
+def _install_compat_shims() -> None:
+    """Backfill kanban_db helpers this service relies on but that newer
+    Hermes checkouts have dropped.
+
+    Hermes removed ``active_run`` in its "remove dead code" cleanup, but
+    KanbanWebUI still needs "the currently-open run for a task". We restore
+    it here with the exact query the old helper used (open run =
+    ``ended_at IS NULL``) so behaviour is byte-for-byte identical and we
+    never have to fork the upstream Hermes checkout.
+    """
+    if hasattr(kanban_db, "active_run"):
+        return
+
+    def active_run(conn, task_id):
+        row = conn.execute(
+            "SELECT * FROM task_runs WHERE task_id = ? AND ended_at IS NULL "
+            "ORDER BY started_at DESC LIMIT 1",
+            (task_id,),
+        ).fetchone()
+        return kanban_db.Run.from_row(row) if row else None
+
+    active_run.__doc__ = (
+        "Return the currently-open run for ``task_id`` (``ended_at IS NULL``)."
+    )
+    kanban_db.active_run = active_run  # type: ignore[attr-defined]
+
+
+_install_compat_shims()
