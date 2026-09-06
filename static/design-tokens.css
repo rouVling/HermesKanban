@@ -47,7 +47,8 @@
   --radius-sm: 10px;
   --radius-md: 16px;
   --radius-lg: 24px;
-  --column-min-width: 260px;
+  --column-min-width: 16rem;
+  --app-shell-padding: 22px;
 }
 
 :root[data-theme="dark"] {
