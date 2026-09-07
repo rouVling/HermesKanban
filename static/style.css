@@ -44,7 +44,7 @@ textarea { width: 100%; resize: vertical; margin-top: 10px; margin-bottom: 10px;
 .board { position: relative; display: grid; grid-template-columns: repeat(var(--kanban-column-count, 6), minmax(var(--column-min-width), 1fr)); gap: 0.875rem; overflow-x: auto; overflow-y: clip; min-width: 0; padding-bottom: 1rem; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: var(--faint) var(--hairline); }
 .board-column { position: relative; min-width: 0; border-radius: var(--radius-lg); padding: 12px; align-self: stretch; scroll-snap-align: start; }
 .board-column::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; border-radius: var(--radius-lg); background: var(--surface); border: 1px solid var(--hairline); box-shadow: var(--shadow-soft); backdrop-filter: blur(18px); }
-.board-column header { display: flex; align-items: center; justify-content: space-between; padding: 8px 6px 12px; background: var(--column-header-bg); border-radius: 16px; }
+.board-column header { position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; padding: 8px 6px 12px; background: var(--column-header-bg); border-radius: 16px; }
 .board-column header div { display: flex; gap: 8px; align-items: baseline; }
 .board-column header h2 { font-size: 15px; text-transform: uppercase; letter-spacing: .08em; }
 .board-column header small { color: var(--muted); }

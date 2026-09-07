@@ -82,7 +82,7 @@ def test_dark_mode_static_contract():
 
     assert 'id="themeToggle"' in index
     assert 'aria-pressed="false"' in index
-    assert 'style.css?v=20260508-02' in index
+    assert 'style.css?v=20260907-01' in index
     assert 'app.js?v=20260508-02' in index
     assert './theme.js?v=20260508-02' in app
     assert 'setupThemeToggle' in app
@@ -105,6 +105,17 @@ def test_dragdrop_pointer_contract_strings():
     dragdrop = (root / 'static' / 'dragdrop.js').read_text(encoding='utf-8')
     for phrase in ['pointerdown', 'setPointerCapture', 'drag threshold', 'drop placeholder', 'autoScrollBoard', 'moveTask']:
         assert phrase in dragdrop
+
+
+def test_board_column_header_stays_above_column_background():
+    root = Path(__file__).resolve().parents[1]
+    style = (root / 'static' / 'style.css').read_text(encoding='utf-8')
+
+    # The column background is a positioned ::before layer at z-index: 0.
+    # Headers must establish a higher stacking level without becoming sticky,
+    # otherwise the title and focus/add buttons are painted behind it.
+    assert '.board-column header { position: relative; z-index: 2;' in style
+    assert '.board-column header { position: sticky;' not in style
 
 
 def test_drawer_matches_dashboard_detail_controls():
